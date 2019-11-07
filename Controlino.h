@@ -1,4 +1,5 @@
 #include "button.h"
 #include "key.h"
 #include "multiplexer.h"
+#include "potentiometer.h"
 #include "selector.h"
