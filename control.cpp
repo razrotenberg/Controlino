@@ -11,7 +11,7 @@ Control::Control(char pin, Multiplexer * multiplexer) :
 {
     if (_multiplexer == nullptr)
     {
-        pinMode(_pin, INPUT);
+        pinMode(_pin, INPUT_PULLUP);
     }
 }
 
@@ -19,11 +19,11 @@ bool Control::digitalRead()
 {
     if (_multiplexer != nullptr)
     {
-        return _multiplexer->digitalRead(_pin) == HIGH;
+        return _multiplexer->digitalRead(_pin) == LOW;
     }
     else
     {
-        return ::digitalRead(_pin) == HIGH;
+        return ::digitalRead(_pin) == LOW;
     }
 }
 
