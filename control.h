@@ -13,6 +13,7 @@ protected:
     Control(Multiplexer & multiplexer, char pin);
 
     bool digitalRead();
+    int analogRead();
 
 private:
     char _pin;

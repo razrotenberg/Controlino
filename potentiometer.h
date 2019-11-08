@@ -1,13 +1,16 @@
 #pragma once
 
+#include "control.h"
+
 #include <Arduino.h>
 
 namespace controlino
 {
 
-struct Potentiometer
+struct Potentiometer : Control
 {
     Potentiometer(char pin);
+    Potentiometer(Multiplexer & multiplexer, char pin);
 
     int check();
 
@@ -30,7 +33,6 @@ struct Potentiometer
     }
 
 private:
-    char _pin;
     int _previous;
 };
 

@@ -3,11 +3,13 @@
 namespace controlino
 {
 
-Potentiometer::Potentiometer(char pin) : _pin(pin)
-{
-    pinMode(pin, INPUT);
-    _previous = analogRead(pin);
-}
+Potentiometer::Potentiometer(char pin) : Control(pin, Mode::Input),
+    _previous(analogRead())
+{}
+
+Potentiometer::Potentiometer(Multiplexer & multiplexer, char pin) : Control(multiplexer, pin),
+    _previous(analogRead())
+{}
 
 int Potentiometer::check()
 {
@@ -18,7 +20,7 @@ int Potentiometer::check()
 
 bool Potentiometer::check(/* out */ int & value)
 {
-    const auto current = analogRead(_pin);
+    const auto current = analogRead();
 
     if (abs(current - _previous) <= 2) // ignore noise
     {

@@ -29,4 +29,16 @@ bool Control::digitalRead()
     }
 }
 
+int Control::analogRead()
+{
+    if (_multiplexer != nullptr)
+    {
+        return _multiplexer->analogRead(_pin);
+    }
+    else
+    {
+        return ::analogRead(_pin);
+    }
+}
+
 } // controlino
