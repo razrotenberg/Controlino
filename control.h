@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mode.h"
 #include "multiplexer.h"
 
 namespace controlino
@@ -8,7 +9,8 @@ namespace controlino
 struct Control
 {
 protected:
-    Control(char pin, Multiplexer * multiplexer = nullptr);
+    Control(char pin, Mode mode);
+    Control(Multiplexer & multiplexer, char pin);
 
     bool digitalRead();
 

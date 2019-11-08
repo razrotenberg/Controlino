@@ -3,8 +3,10 @@
 namespace controlino
 {
 
-Key::Key(char pin, Multiplexer * multiplexer) : Control(pin, multiplexer),
-    _previous(false)
+Key::Key(char pin) : Control(pin, Mode::Pullup)
+{}
+
+Key::Key(Multiplexer & multiplexer, char pin) : Control(multiplexer, pin)
 {}
 
 Key::Event Key::check()

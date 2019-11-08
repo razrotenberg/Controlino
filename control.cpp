@@ -5,15 +5,17 @@
 namespace controlino
 {
 
-Control::Control(char pin, Multiplexer * multiplexer) :
+Control::Control(char pin, Mode mode) :
     _pin(pin),
-    _multiplexer(multiplexer)
+    _multiplexer(nullptr)
 {
-    if (_multiplexer == nullptr)
-    {
-        pinMode(_pin, INPUT_PULLUP);
-    }
+    pinMode(_pin, static_cast<char>(mode));
 }
+
+Control::Control(Multiplexer & multiplexer, char pin) :
+    _pin(pin),
+    _multiplexer(&multiplexer)
+{}
 
 bool Control::digitalRead()
 {

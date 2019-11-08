@@ -17,9 +17,10 @@ constexpr auto DoubleClick  = 220;
 
 } // duration
 
-Button::Button(char pin, Multiplexer * multiplexer) : Control(pin, multiplexer),
-    _what(What::Idle),
-    _when() // irrelevent in idle mode
+Button::Button(char pin) : Control(pin, Mode::Pullup)
+{}
+
+Button::Button(Multiplexer & multiplexer, char pin) : Control(multiplexer, pin)
 {}
 
 Button::Event Button::check()

@@ -15,12 +15,13 @@ struct Key : Control
         Up,
     };
 
-    Key(char pin, Multiplexer * multiplexer = nullptr);
+    Key(char pin);
+    Key(Multiplexer & multiplexer, char pin);
 
     Event check();
 
 private:
-    bool _previous;
+    bool _previous = false;
 };
 
 } // controlino

@@ -19,7 +19,8 @@ struct Button : Control
         ClickPress,
     };
 
-    Button(char pin, Multiplexer * multiplexer = nullptr);
+    Button(char pin);
+    Button(Multiplexer & multiplexer, char pin);
     
     Event check();    
 
@@ -36,7 +37,7 @@ private:
         Drain,
     };
     
-    What _what;
+    What _what = What::Idle;
     unsigned short _when; // 16 bits can hold 65,535 possible values, which is enough for storing information for ~65 seconds
 };
 
