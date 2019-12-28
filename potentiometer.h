@@ -28,7 +28,11 @@ struct Potentiometer : Control
     bool check(/* out */ int & value)
     {
         if (!check(/* out */ value)) { return false; }
-        /* out */ value = constrain(map(value, 0, 1023, Min, Max + 1), Min, Max);
+
+        /* out */ value = constrain(
+            map(value, 0, 1023, (int)((float)Min * 0.85), (int)((float)Max * 1.15)),
+            Min, Max);
+
         return true;
     }
 
