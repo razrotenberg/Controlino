@@ -36,6 +36,16 @@ struct Potentiometer : Control
         return true;
     }
 
+    template <int Min, int Max>
+    int read()
+    {
+        const auto value = analogRead();
+
+        return constrain(
+            map(value, 0, 1023, (int)((float)Min * 0.85), (int)((float)Max * 1.15)),
+            Min, Max);
+    }
+
 private:
     int _previous;
 };
