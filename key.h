@@ -10,9 +10,10 @@ struct Key : Control
     enum class Event : char
     {
         None, // nothing has happened
-        
+
         Down,
         Up,
+        Hold,
     };
 
     Key(char pin);

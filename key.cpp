@@ -23,6 +23,10 @@ Key::Event Key::check()
     {
         event = Event::Up;
     }
+    else if (pressed == true && _previous == true)
+    {
+        event = Event::Hold;
+    }
 
     _previous = pressed;
     return event;
