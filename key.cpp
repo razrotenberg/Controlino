@@ -3,17 +3,17 @@
 namespace controlino
 {
 
-Key::Key(char pin) : Control(pin, Mode::Pullup)
+Key::Key(Pin pin) : Control(pin, Mode::Pullup)
 {}
 
-Key::Key(Multiplexer & multiplexer, char pin) : Control(multiplexer, pin)
+Key::Key(Multiplexer & multiplexer, Pin pin) : Control(multiplexer, pin, Mode::Pullup)
 {}
 
 Key::Event Key::check()
 {
     auto event = Event::None;
 
-    const auto pressed = digitalRead();
+    const auto pressed = digitalRead() == LOW;
 
     if (pressed == true && _previous == false)
     {

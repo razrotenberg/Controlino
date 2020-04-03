@@ -17,24 +17,24 @@ constexpr auto DoubleClick  = 220;
 
 } // duration
 
-Button::Button(char pin) : Control(pin, Mode::Pullup)
+Button::Button(Pin pin) : Control(pin, Mode::Pullup)
 {}
 
-Button::Button(Multiplexer & multiplexer, char pin) : Control(multiplexer, pin)
+Button::Button(Multiplexer & multiplexer, Pin pin) : Control(multiplexer, pin, Mode::Pullup)
 {}
 
 Button::Event Button::check()
 {
     const auto now = static_cast<unsigned short>(millis());
-    
+
     static_assert(sizeof(now) == sizeof(Button::_when), "Sizes must match"); // otherwise calculating the difference would be misleading
 
-    const auto pressed = digitalRead();
+    const auto pressed = digitalRead() == LOW;
 
     if (pressed == true && _what == What::Idle)
     {
         // we tell the user nothing as we want to make sure this is not just a touch but an actual press
-        
+
         _what = What::Touch;
         _when = now;
         return Event::None;
@@ -43,7 +43,7 @@ Button::Event Button::check()
     if (pressed == false && _what == What::Touch)
     {
         // go back to idle mode as the touch was probably just a glitch
-        
+
         _what = What::Idle;
         return Event::None;
     }
@@ -73,7 +73,7 @@ Button::Event Button::check()
         _when = now;
         return Event::None;
     }
-    
+
     if (pressed == true && _what == What::Slip)
     {
         // ignore this slip and act as if the button is still being pressed as it was repressed right away
@@ -95,7 +95,7 @@ Button::Event Button::check()
     if (pressed == false && _what == What::Release && now - _when > duration::DoubleClick)
     {
         // this is a single click as there was no second click after waiting for a long enough period of time
-        
+
         _what = What::Idle;
         return Event::Click;
     }
@@ -116,23 +116,23 @@ Button::Event Button::check()
         _what = What::Drain;
         return Event::ClickPress;
     }
-    
+
     if (pressed == false && _what == What::SecondPress)
     {
         _what = What::SecondRelease;
         return Event::Up;
     }
-    
+
     if (pressed == false && _what == What::SecondRelease)
     {
         // although there is no need to wait after the 'Up' event,
         // as we do not support more than two clicks, we implement this
         // stage in order to fire both 'Up' and 'ClickClick' events
-        
+
         _what = What::Idle;
         return Event::ClickClick;
     }
-    
+
     if (pressed == false && _what == What::Drain)
     {
         _what = What::Idle;

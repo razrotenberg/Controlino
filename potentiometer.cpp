@@ -3,11 +3,11 @@
 namespace controlino
 {
 
-Potentiometer::Potentiometer(char pin) : Control(pin, Mode::Input),
+Potentiometer::Potentiometer(Pin pin) : Control(pin, Mode::Input),
     _previous(analogRead())
 {}
 
-Potentiometer::Potentiometer(Multiplexer & multiplexer, char pin) : Control(multiplexer, pin),
+Potentiometer::Potentiometer(Multiplexer & multiplexer, Pin pin) : Control(multiplexer, pin, Mode::Input),
     _previous(analogRead())
 {}
 

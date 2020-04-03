@@ -16,8 +16,8 @@ struct Key : Control
         Hold,
     };
 
-    Key(char pin);
-    Key(Multiplexer & multiplexer, char pin);
+    Key(Pin pin);
+    Key(Multiplexer & multiplexer, Pin pin);
 
     Event check();
 

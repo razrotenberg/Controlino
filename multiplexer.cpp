@@ -1,41 +1,31 @@
 #include "multiplexer.h"
 
-#define PIN (_comm & 0b00111111)
-
 namespace controlino
 {
 
-Multiplexer::Multiplexer(char comm, Selector & selector) :
-    _comm(comm | 0b11000000), // 0b11 (3) is not a valid mode and will cause the mode to be set at the first usage
+Multiplexer::Multiplexer(Pin comm, Selector & selector) :
+    _comm(comm, (Mode)0b11), // 0b11 (3) is not a valid mode and will cause the pin to be configured at the first usage
     _selector(selector)
 {}
 
-int Multiplexer::digitalRead(char pin)
+int Multiplexer::digitalRead(Pin pin)
 {
-    set(Mode::Pullup);
     _selector.select(pin);
-    return ::digitalRead(PIN);
+    return ::digitalRead(_comm.pin());
 }
 
-int Multiplexer::analogRead(char pin)
+int Multiplexer::analogRead(Pin pin)
 {
-    set(Mode::Input);
     _selector.select(pin);
-    return ::analogRead(PIN);
+    return ::analogRead(_comm.pin());
 }
 
-void Multiplexer::set(Mode mode)
+void Multiplexer::pinMode(Mode mode)
 {
-    // 2 bits are enough for representing the possible 3 modes
-
-    const auto desired = static_cast<char>(mode) << 6;
-    const auto current = _comm & 0b11000000;
-
-    if (desired != current)
+    if (mode != _comm.mode())
     {
-        pinMode(PIN, static_cast<char>(mode));
-        _comm &= 0b00111111;
-        _comm |= desired;
+        ::pinMode(_comm.pin(), (char)mode);
+        _comm.mode(mode);
     }
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "mode.h"
+#include "pinmode.h"
 #include "selector.h"
 
 namespace controlino
@@ -8,15 +8,15 @@ namespace controlino
 
 struct Multiplexer
 {
-    Multiplexer(char comm, Selector & selector);
+    Multiplexer(Pin comm, Selector & selector);
 
-    int digitalRead(char pin); // reading as input pullup
-    int analogRead(char pin);
+    int digitalRead(Pin pin);
+    int analogRead(Pin pin);
+
+    void pinMode(Mode mode);
 
 private:
-    void set(Mode mode);
-
-    char _comm; // 2 msbs are the current pin mode
+    Pinmode _comm;
     Selector & _selector;
 };
 

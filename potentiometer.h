@@ -9,8 +9,8 @@ namespace controlino
 
 struct Potentiometer : Control
 {
-    Potentiometer(char pin);
-    Potentiometer(Multiplexer & multiplexer, char pin);
+    Potentiometer(Pin pin);
+    Potentiometer(Multiplexer & multiplexer, Pin pin);
 
     int check();
 

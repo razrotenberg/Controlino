@@ -5,27 +5,28 @@
 namespace controlino
 {
 
-Control::Control(char pin, Mode mode) :
-    _pin(pin),
+Control::Control(Pin pin, Mode mode) :
+    _pinmode(pin, mode),
     _multiplexer(nullptr)
 {
-    pinMode(_pin, static_cast<char>(mode));
+    pinMode(pin, (char)mode);
 }
 
-Control::Control(Multiplexer & multiplexer, char pin) :
-    _pin(pin),
+Control::Control(Multiplexer & multiplexer, Pin pin, Mode mode) :
+    _pinmode(pin, mode),
     _multiplexer(&multiplexer)
 {}
 
-bool Control::digitalRead()
+int Control::digitalRead()
 {
     if (_multiplexer != nullptr)
     {
-        return _multiplexer->digitalRead(_pin) == LOW;
+        _multiplexer->pinMode(_pinmode.mode());
+        return _multiplexer->digitalRead(_pinmode.pin());
     }
     else
     {
-        return ::digitalRead(_pin) == LOW;
+        return ::digitalRead(_pinmode.pin());
     }
 }
 
@@ -33,11 +34,12 @@ int Control::analogRead()
 {
     if (_multiplexer != nullptr)
     {
-        return _multiplexer->analogRead(_pin);
+        _multiplexer->pinMode(_pinmode.mode());
+        return _multiplexer->analogRead(_pinmode.pin());
     }
     else
     {
-        return ::analogRead(_pin);
+        return ::analogRead(_pinmode.pin());
     }
 }
 

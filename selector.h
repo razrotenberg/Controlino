@@ -1,19 +1,21 @@
 #pragma once
 
+#include "pin.h"
+
 namespace controlino
 {
 
 struct Selector
 {
-    Selector(char S0, char S1, char S2, char S3);
-    
-    void select(char pin);
+    Selector(Pin S0, Pin S1, Pin S2, Pin S3);
+
+    void select(Pin pin);
 
 private:
-    char _S0; // lsb
-    char _S1;
-    char _S2;
-    char _S3; // msb
+    Pin _S0; // lsb
+    Pin _S1;
+    Pin _S2;
+    Pin _S3; // msb
 };
 
 } // controlino

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "mode.h"
 #include "multiplexer.h"
+#include "pinmode.h"
 
 namespace controlino
 {
@@ -9,14 +9,14 @@ namespace controlino
 struct Control
 {
 protected:
-    Control(char pin, Mode mode);
-    Control(Multiplexer & multiplexer, char pin);
+    Control(Pin pin, Mode mode);
+    Control(Multiplexer & multiplexer, Pin pin, Mode mode);
 
-    bool digitalRead();
+    int digitalRead();
     int analogRead();
 
 private:
-    char _pin;
+    Pinmode _pinmode;
     Multiplexer * _multiplexer;
 };
 
