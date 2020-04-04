@@ -5,24 +5,34 @@
 namespace controlino
 {
 
-Selector::Selector(Pin S0, Pin S1, Pin S2, Pin S3) :
-    _S0(S0),
-    _S1(S1),
-    _S2(S2),
-    _S3(S3)
+Selector::Selector(Pin S0, Pin S1, Pin S2) : Selector(S0, S1, S2, -1)
+{}
+
+Selector::Selector(Pin S0, Pin S1, Pin S2, Pin S3)
 {
-    pinMode(_S0, OUTPUT);
-    pinMode(_S1, OUTPUT);
-    pinMode(_S2, OUTPUT);
-    pinMode(_S3, OUTPUT);
+    _pins[0] = S0;
+    _pins[1] = S1;
+    _pins[2] = S2;
+    _pins[3] = S3;
+
+    for (unsigned i = 0; i < sizeof(_pins) / sizeof(_pins[0]); ++i)
+    {
+        if (_pins[i] != -1)
+        {
+            pinMode(_pins[i], OUTPUT);
+        }
+    }
 }
 
 void Selector::select(Pin pin)
 {
-    digitalWrite(_S0, (pin & 0b0001) ? HIGH : LOW);
-    digitalWrite(_S1, (pin & 0b0010) ? HIGH : LOW);
-    digitalWrite(_S2, (pin & 0b0100) ? HIGH : LOW);
-    digitalWrite(_S3, (pin & 0b1000) ? HIGH : LOW);
+    for (unsigned i = 0; i < sizeof(_pins) / sizeof(_pins[0]); ++i)
+    {
+        if (_pins[i] != -1)
+        {
+            digitalWrite(_pins[i], (pin & (1 << i)) ? HIGH : LOW);
+        }
+    }
 }
 
 } // controlino
