@@ -50,7 +50,7 @@ extern "C" void loop()
 
     if (__potentiometer.check() == Potentiometer::Event::Changed)
     {
-        Serial.println(__potentiometer.read());
+        Serial.println(__potentiometer.value());
     }
 }
 
