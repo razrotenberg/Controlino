@@ -1,7 +1,7 @@
 #pragma once
 
-#include "pinmode.h"
-#include "selector.h"
+#include "pinmode/pinmode.h"
+#include "selector/selector.h"
 
 namespace controlino
 {

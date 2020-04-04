@@ -1,7 +1,7 @@
 #pragma once
 
-#include "multiplexer.h"
-#include "pinmode.h"
+#include "multiplexer/multiplexer.h"
+#include "pinmode/pinmode.h"
 
 namespace controlino
 {

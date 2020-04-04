@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pin.h"
+#include "pin/pin.h"
 
 namespace controlino
 {

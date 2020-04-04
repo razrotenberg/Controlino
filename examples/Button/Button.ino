@@ -1,4 +1,4 @@
-#include "button.h"
+#include <Controlino.h>
 
 // `MUXED` should be defined if the button is connected through a multiplexer
 // #define MUXED

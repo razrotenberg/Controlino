@@ -1,0 +1,32 @@
+# Datatypes (KEYWORD1)
+
+Button	KEYWORD1
+Control	KEYWORD1
+Event	KEYWORD1
+Key	KEYWORD1
+Mode	KEYWORD1
+Multiplexer	KEYWORD1
+Pin	KEYWORD1
+Potentiometer	KEYWORD1
+Selector	KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+
+check	KEYWORD2
+select	KEYWORD2
+
+# Constants (LITERAL1)
+
+None	LITERAL1
+Down	LITERAL1
+Up	LITERAL1
+Click	LITERAL1
+Press	LITERAL1
+ClickClick	LITERAL1
+ClickPress	LITERAL1
+Hold	LITERAL1
+Changed	LITERAL1
+
+Input	LITERAL1
+Output	LITERAL1
+Pullup	LITERAL1

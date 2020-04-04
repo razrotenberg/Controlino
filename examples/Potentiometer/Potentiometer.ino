@@ -1,4 +1,4 @@
-#include "potentiometer.h"
+#include <Controlino.h>
 
 // `MUXED` should be defined if the potentiometer is connected through a multiplexer
 // #define MUXED

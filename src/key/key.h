@@ -1,6 +1,6 @@
 #pragma once
 
-#include "control.h"
+#include "control/control.h"
 
 namespace controlino
 {
