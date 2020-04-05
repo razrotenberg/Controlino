@@ -1,7 +1,7 @@
 #pragma once
 
-#include "mode/mode.h"
-#include "pin/pin.h"
+#include "../mode/mode.h"
+#include "../pin/pin.h"
 
 namespace controlino
 {
