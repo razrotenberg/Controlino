@@ -37,7 +37,7 @@ The following table lists the options of `Key::Event`:
 | `Up` | The key was just released | The key was previously pressed and it is now not pressed |
 | `Hold` | The key is still pressed | The key was previously pressed and it is now pressed |
 
-> Take a look at the "key" [example](examples/key/key.ino) for a usage example.
+> Take a look at the "key" [example](examples/Key/Key.ino) for a usage example.
 
 ### Button
 
@@ -58,15 +58,13 @@ The following table lists the options of `Button::Event`:
 | `ClickClick` | The button was clicked twice | The button was just released after being pressed twice for a short duration |
 | `ClickPress` | The button was clicked and pressed | The button was clicked for a short duration and then pressed and is still pressed for a long duration |
 
-> Take a look at the "button" [example](examples/button/button.ino) for a usage example.
+> Take a look at the "button" [example](examples/Button/Button.ino) for a usage example.
 
 ### Potentiometer
 
 A potentiometer control.
 
 A `Potentiometer` control should be either connected directly to an analog pin of the Arduino, or through a multiplexer which its communication pin is connected to an analog pin.
-
-`Potentiometer` is templated, and the minimum and maximum valid values of it should be specified upon creation as the template arguments.
 
 The following table lists the options of `Potentiometer::Event`:
 
@@ -76,9 +74,10 @@ The following table lists the options of `Potentiometer::Event`:
 | `Changed` | The potentiometer was moved | The current value of the potentiometer is different than the previous one |
 
 In addition, `Potentiometer` exposes the method `int read()` to read the current value of the control.
-The value will always be within the limits of the minimum and maximum values specified as the template arguments.
 
-> Take a look at the "potentiometer" [example](examples/potentiometer/potentiometer.ino) for a usage example.
+Upon creation, `Potentiometer` may receive minimum and maximum values, and the value returned from `read()` will be limited by them.
+
+> Take a look at the "potentiometer" [example](examples/Potentiometer/Potentiometer.ino) for a usage example.
 
 ## Classes
 
