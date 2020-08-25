@@ -38,8 +38,6 @@ extern "C" void setup()
 
 extern "C" void loop()
 {
-    using Potentiometer = Potentiometer<20, 230>;
-
 #ifdef MUXED
     static auto __selector      = Selector(pin::S0, pin::S1, pin::S2, pin::S3);
     static auto __multiplexer   = Multiplexer(pin::SIG, __selector);
