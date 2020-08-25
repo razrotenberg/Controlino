@@ -10,10 +10,10 @@ namespace duration
 
 // values are in ms
 
-constexpr auto Touch        = 20;
-constexpr auto Slip         = 20;
-constexpr auto Press        = 800;
-constexpr auto DoubleClick  = 220;
+constexpr unsigned short Touch       = 20;
+constexpr unsigned short Slip        = 20;
+constexpr unsigned short Press       = 800;
+constexpr unsigned short DoubleClick = 220;
 
 } // duration
 
@@ -48,7 +48,7 @@ Button::Event Button::check()
         return Event::None;
     }
 
-    if (pressed == true && _what == What::Touch && now - _when > duration::Touch)
+    if (pressed == true && _what == What::Touch && (unsigned short)(now - _when) > duration::Touch)
     {
         // now we are sure this is an actual press
 
@@ -57,7 +57,7 @@ Button::Event Button::check()
         return Event::Down;
     }
 
-    if (pressed == true && _what == What::Press && now - _when >= duration::Press)
+    if (pressed == true && _what == What::Press && (unsigned short)(now - _when) >= duration::Press)
     {
         // the button is being pressed long enough for it to count as a long press
 
@@ -83,7 +83,7 @@ Button::Event Button::check()
         return Event::None;
     }
 
-    if (pressed == false && _what == What::Slip && now - _when > duration::Slip)
+    if (pressed == false && _what == What::Slip && (unsigned short)(now - _when) > duration::Slip)
     {
         // now we are sure this is an actual release
 
@@ -92,7 +92,7 @@ Button::Event Button::check()
         return Event::Up;
     }
 
-    if (pressed == false && _what == What::Release && now - _when > duration::DoubleClick)
+    if (pressed == false && _what == What::Release && (unsigned short)(now - _when) > duration::DoubleClick)
     {
         // this is a single click as there was no second click after waiting for a long enough period of time
 
@@ -109,7 +109,7 @@ Button::Event Button::check()
         return Event::Down;
     }
 
-    if (pressed == true && _what == What::SecondPress && now - _when >= duration::Press)
+    if (pressed == true && _what == What::SecondPress && (unsigned short)(now - _when) >= duration::Press)
     {
         // the button is being pressed long enough for it to count as a long press
 
