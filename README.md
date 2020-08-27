@@ -77,6 +77,15 @@ In addition, `Potentiometer` exposes the method `int read()` to read the current
 
 Upon creation, `Potentiometer` may receive minimum and maximum values, and the value returned from `read()` will be limited by them.
 
+During development and because of the usage of a solderless breadboard, it's common for potentiometers to be unstable.
+For this reason, `Potentiometer` receives parameters, encapsulated in `Potentiometer::Noise`, that could be configured according to the current setup, to improve the stability:
+- `down` - a floating point multiplier for `min`
+- `up` - a floating point multiplier for `max`
+- `fluctuation` - the noise threshold
+
+Both `down` and `up` are used for multiplying `min` and `max`, respectively.
+They are used for decreasing and increasing `min` and `max` to improve the mapping of the raw values of the potentiometer from (0..1023) to (min..max)
+
 > Take a look at the "potentiometer" [example](examples/Potentiometer/Potentiometer.ino) for a usage example.
 
 ## Classes

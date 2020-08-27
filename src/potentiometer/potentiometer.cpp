@@ -3,41 +3,49 @@
 namespace controlino
 {
 
-Potentiometer::Potentiometer(Pin pin, int min, int max) : Control(pin, Mode::Input),
-    _min(min),
-    _max(max),
-    _previous(read())
+Potentiometer::Potentiometer(Pin pin, const Noise & noise) : Potentiometer(pin, -1, -1, noise)
 {}
 
-Potentiometer::Potentiometer(Multiplexer & multiplexer, Pin pin, int min, int max) : Control(multiplexer, pin, Mode::Input),
+Potentiometer::Potentiometer(Pin pin, int min, int max, const Noise & noise) : Control(pin, Mode::Input),
     _min(min),
     _max(max),
-    _previous(read())
+    _noise(noise),
+    _previous(analogRead())
+{}
+
+Potentiometer::Potentiometer(Multiplexer & multiplexer, Pin pin, const Noise & noise) : Potentiometer(multiplexer, pin, -1, -1, noise)
+{}
+
+Potentiometer::Potentiometer(Multiplexer & multiplexer, Pin pin, int min, int max, const Noise & noise) : Control(multiplexer, pin, Mode::Input),
+    _min(min),
+    _max(max),
+    _noise(noise),
+    _previous(analogRead())
 {}
 
 Potentiometer::Event Potentiometer::check()
 {
     auto event = Event::None;
 
-    const auto value = read();
+    const int now = analogRead();
 
-    if (_previous != value)
+    if (abs(now - _previous) > _noise.fluctuation)
     {
+        _previous = now;
         event = Event::Changed;
     }
 
-    _previous = value;
     return event;
 }
 
 int Potentiometer::read()
 {
-    int value = analogRead();
+    int value = _previous;
 
     if (_min != -1 && _max != -1)
     {
         value = constrain(
-            map(value, 0, 1023, (int)((float)_min * 0.85), (int)((float)_max * 1.15)),
+            map(value, 0, 1023, (int)((float)_min * _noise.down), (int)((float)_max * _noise.up)),
             _min, _max);
     }
 
